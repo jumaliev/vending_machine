@@ -14,6 +14,7 @@ public class AppRunner {
     private final CoinAcceptor coinAcceptor;
 
     private static boolean isExit = false;
+    private boolean card = true;
 
     private AppRunner() {
         products.addAll(new Product[]{
@@ -38,12 +39,24 @@ public class AppRunner {
         print("В автомате доступны:");
         showProducts(products);
         choiseMethodPay();
+        while (coinAcceptor.getAmount() >= 20) {
+            String str = "Баланс карты: ";
+            if (!card) {
+                str = "Монет на сумму: ";
+            }
+            System.out.printf(("%s %d\n"), str ,coinAcceptor.getAmount());
+            UniversalArray<Product> allowProducts = new UniversalArrayImpl<>();
+            allowProducts.addAll(getAllowedProducts().toArray());
+            chooseAction(allowProducts);
+        }
+        System.out.println("Деняк не осталось, добавишь еще или выйти?\n'h' или 'H' - выйти\n'a' или 'A' - добавить монет");
+        String userAnswer = fromConsole();
+        if (userAnswer.equalsIgnoreCase("a")) {
+            System.out.print("Сколько добавить: ");
+            int addCoin = Integer.parseInt(fromConsole());
+            coinAcceptor.setAmount(coinAcceptor.getAmount() + addCoin);
+        }
 
-        print("Монет на сумму: " + coinAcceptor.getAmount());
-
-        UniversalArray<Product> allowProducts = new UniversalArrayImpl<>();
-        allowProducts.addAll(getAllowedProducts().toArray());
-        chooseAction(allowProducts);
 
     }
 
@@ -116,6 +129,7 @@ public class AppRunner {
                     }
                 }
             } else if (userChoisePay.equalsIgnoreCase("m")) {
+                card = false;
                 System.out.print("Сколько монет хотите закинуть?  ");
                 while (true) {
                     try {
