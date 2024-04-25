@@ -40,7 +40,7 @@ public class AppRunner {
         print("В автомате доступны:");
         showProducts(products);
         choiseMethodPay();
-        for (int i = 0; true; i++) {
+        for (int i = 0; i < products.size(); i++) {
             while (coinAcceptor.getAmount() >= 20) {
                 String str = "Баланс карты: ";
                 if (!card) {
@@ -52,31 +52,34 @@ public class AppRunner {
                 chooseAction(allowProducts);
             }
 
-            do {
+            while (whileForChoise) {
                 String str = "Баланс карты: ";
                 if (!card) {
                     str = "Монет на сумму: ";
                 }
                 System.out.printf(("%s %d\n"), str, coinAcceptor.getAmount());
-                System.out.println("Деняк не осталось, добавишь еще или выйти?\n'h' или 'H' - выйти\n'a' или 'A' - добавить монет");
-                String userAnswer = fromConsole();
-                if (userAnswer.equalsIgnoreCase("a")) {
-                    System.out.print("Сколько добавить: ");
-                    int addCoin = Integer.parseInt(fromConsole());
-                    coinAcceptor.setAmount(coinAcceptor.getAmount() + addCoin);
-                    break;
-                } else {
-                    System.out.println("Выход...");
-                    whileForChoise = false;
-                    isExit = true;
-                    break;
+                if (coinAcceptor.getAmount() <= 20) {
+                    System.out.println("Деняк не осталось, добавишь еще или выйти?\n'h' или 'H' - выйти\n'a' или 'A' - добавить монет");
+                    String userAnswer = fromConsole();
+                    if (userAnswer.equalsIgnoreCase("a")) {
+                        System.out.print("Сколько добавить: ");
+                        int addCoin = Integer.parseInt(fromConsole());
+                        coinAcceptor.setAmount(coinAcceptor.getAmount() + addCoin);
+                        break;
+                    } else {
+                        System.out.println("Выход...");
+                        whileForChoise = false;
+                        isExit = true;
+                        break;
+                    }
                 }
-            } while (whileForChoise);
-            if (i % 4 == 0) {
+            }
+            if (i % 6 == 0 || !whileForChoise) {
                 System.out.println("Вы хотите выйти? y/n");
                 String userAnswerOut = fromConsole();
                 if (userAnswerOut.equalsIgnoreCase("n")) {
                     print("Продолжаем...");
+                    whileForChoise = true;
                 } else if (userAnswerOut.equalsIgnoreCase("y")) {
                     print("Выход...");
                     isExit = true;
@@ -86,9 +89,6 @@ public class AppRunner {
                 }
             }
         }
-
-
-
 
 
     }
@@ -120,7 +120,6 @@ public class AppRunner {
             }
         } catch (IllegalArgumentException e) {
             print("Недопустимая буква. Попрбуйте еще раз.");
-            chooseAction(products);
         }
 
 
@@ -175,6 +174,10 @@ public class AppRunner {
                     }
                 }
                 break;
+
+            } else {
+                print("Неизвестная команда, попробуйте еще раз!");
+                userChoisePay = fromConsole();
 
             }
         }
