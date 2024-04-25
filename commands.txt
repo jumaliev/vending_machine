@@ -1,0 +1,5 @@
+git branch
+ls
+cd
+git status
+git checkout
