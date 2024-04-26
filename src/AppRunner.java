@@ -58,34 +58,27 @@ public class AppRunner {
                     str = "Монет на сумму: ";
                 }
                 System.out.printf(("%s %d\n"), str, coinAcceptor.getAmount());
-                if (coinAcceptor.getAmount() <= 20) {
-                    System.out.println("Деняк не осталось, добавишь еще или выйти?\n'h' или 'H' - выйти\n'a' или 'A' - добавить монет");
+                if (coinAcceptor.getAmount() <= 20 && !card) {
+                    System.out.println("Деняк не осталось, добавишь еще или выйти?\n'h' или 'H' - выйти\n'a' или 'A' - добавить монет\n'r' или 'R' Заново выбрать метод оплаты");
                     String userAnswer = fromConsole();
                     if (userAnswer.equalsIgnoreCase("a")) {
                         System.out.print("Сколько добавить: ");
                         int addCoin = Integer.parseInt(fromConsole());
                         coinAcceptor.setAmount(coinAcceptor.getAmount() + addCoin);
                         break;
-                    } else {
+                    } else if (userAnswer.equalsIgnoreCase("r")) {
+                        choiseMethodPay();
+                    }
+                    else {
                         System.out.println("Выход...");
                         whileForChoise = false;
                         isExit = true;
                         break;
                     }
-                }
-            }
-            if (i % 6 == 0 || !whileForChoise) {
-                System.out.println("Вы хотите выйти? y/n");
-                String userAnswerOut = fromConsole();
-                if (userAnswerOut.equalsIgnoreCase("n")) {
-                    print("Продолжаем...");
-                    whileForChoise = true;
-                } else if (userAnswerOut.equalsIgnoreCase("y")) {
-                    print("Выход...");
+                } else if (coinAcceptor.getAmount() <= 20 && card) {
+                    print("Денег на карте недостаточно для покупки\nВыход....");
+                    whileForChoise = false;
                     isExit = true;
-                    break;
-                } else {
-                    print("Неизвестная команда, но мы продолжаем!!");
                 }
             }
         }
