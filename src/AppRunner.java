@@ -44,7 +44,7 @@ public class AppRunner {
             while (coinAcceptor.getAmount() >= 20) {
                 String str = "Баланс карты: ";
                 if (!card) {
-                    str = "Монет на сумму: ";
+                    str = "Деньги на сумму: ";
                 }
                 System.out.printf(("%s %d\n"), str, coinAcceptor.getAmount());
                 UniversalArray<Product> allowProducts = new UniversalArrayImpl<>();
@@ -55,11 +55,11 @@ public class AppRunner {
             while (whileForChoise) {
                 String str = "Баланс карты: ";
                 if (!card) {
-                    str = "Монет на сумму: ";
+                    str = "Деньги на сумму: ";
                 }
                 System.out.printf(("%s %d\n"), str, coinAcceptor.getAmount());
                 if (coinAcceptor.getAmount() <= 20 && !card) {
-                    System.out.println("Деняк не осталось, добавишь еще или выйти?\n'h' или 'H' - выйти\n'a' или 'A' - добавить монет\n'r' или 'R' Заново выбрать метод оплаты");
+                    System.out.println("Деняк не осталось, добавишь еще или выйти?\n'h' или 'H' - выйти\n'a' или 'A' - добавить денег\n'r' или 'R' Заново выбрать метод оплаты");
                     String userAnswer = fromConsole();
                     if (userAnswer.equalsIgnoreCase("a")) {
                         System.out.print("Сколько добавить: ");
