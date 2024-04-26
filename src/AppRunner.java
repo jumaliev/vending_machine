@@ -68,6 +68,7 @@ public class AppRunner {
                         break;
                     } else if (userAnswer.equalsIgnoreCase("r")) {
                         choiseMethodPay();
+                        break;
                     }
                     else {
                         System.out.println("Выход...");
@@ -76,6 +77,7 @@ public class AppRunner {
                         break;
                     }
                 } else if (coinAcceptor.getAmount() <= 20 && card) {
+                    
                     print("Денег на карте недостаточно для покупки\nВыход....");
                     whileForChoise = false;
                     isExit = true;
@@ -150,7 +152,7 @@ public class AppRunner {
                     if (userCardPassword.length() < 8) {
                         print("Пароль от карты должен быть не менее 8 символов!");
                     } else {
-                        coinAcceptor.setAmount(rnd.nextInt(2 + (8)) * 10);
+                        coinAcceptor.setAmount(rnd.nextInt(4 + (5)) * 10);
                         break;
                     }
                 }
