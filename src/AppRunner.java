@@ -77,7 +77,7 @@ public class AppRunner {
                         break;
                     }
                 } else if (coinAcceptor.getAmount() <= 20 && card) {
-                    
+
                     print("Денег на карте недостаточно для покупки\nВыход....");
                     whileForChoise = false;
                     isExit = true;
